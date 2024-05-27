@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             const projectsList = document.getElementById('projects-list');
+            projectsList.innerHTML = ''; // Clear existing content
             data.forEach(repo => {
                 const projectDiv = document.createElement('div');
                 projectDiv.className = 'col-md-4';
