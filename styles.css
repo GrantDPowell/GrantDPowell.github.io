@@ -6,31 +6,13 @@ body {
     padding-bottom: 3rem; /* Add padding to prevent footer overlap */
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
+header .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 section {
-    padding: 2rem;
-    margin: 2rem 0;
+    padding: 2rem 0;
 }
 
 #projects .project {
