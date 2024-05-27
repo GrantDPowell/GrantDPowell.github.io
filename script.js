@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://api.github.com/users/OkimaSha/repos')
+    fetch('https://api.github.com/users/GrantDPowell/repos')
         .then(response => response.json())
         .then(data => {
             const projectsList = document.getElementById('projects-list');
