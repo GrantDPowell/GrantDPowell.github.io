@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(readmeContent => {
                     console.log(`README fetched for ${repo.name}:`, readmeContent);
-                    document.getElementById(`readme-${repo.id}`).innerHTML = marked(readmeContent);
+                    document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeContent);
                 })
                 .catch(error => {
                     console.error(`Error fetching the README for ${repo.name}:`, error);
