@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const projectsList = document.getElementById('projects-list');
             data.forEach(repo => {
+                const projectName = repo.name === 'GrantDPowell.github.io' ? 'This Website' : repo.name;
                 const projectDiv = document.createElement('div');
                 projectDiv.className = 'col-md-12 mb-4';
 
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="card-header" id="heading${repo.id}">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${repo.id}" aria-expanded="true" aria-controls="collapse${repo.id}">
-                                    ${repo.name}
+                                    ${projectName}
                                 </button>
                             </h5>
                         </div>
@@ -47,7 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(readmeContent => {
                     console.log(`README fetched for ${repo.name}:`, readmeContent);
-                    document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeContent);
+                    // Convert relative image URLs to absolute
+                    const baseURL = `https://raw.githubusercontent.com/GrantDPowell/${repo.name}/main/`;
+                    const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, `![$1](${baseURL}$2)`);
+                    document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeWithAbsoluteURLs);
                 })
                 .catch(error => {
                     console.error(`Error fetching the README for ${repo.name}:`, error);
