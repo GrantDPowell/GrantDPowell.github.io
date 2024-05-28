@@ -48,9 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(readmeContent => {
                     console.log(`README fetched for ${repo.name}:`, readmeContent);
+
                     // Convert relative image URLs to absolute
                     const baseURL = `https://raw.githubusercontent.com/GrantDPowell/${repo.name}/main/`;
-                    const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, `![$1](${baseURL}$2)`);
+                    const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, (match, alt, src) => {
+                        return `![${alt}](${baseURL}${src})`;
+                    });
+
                     document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeWithAbsoluteURLs);
                 })
                 .catch(error => {
