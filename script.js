@@ -31,12 +31,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Fetch README file
                 const readmeUrl = `https://api.github.com/repos/GrantDPowell/${repo.name}/readme`;
+                console.log(`Fetching README from: ${readmeUrl}`);
+
                 fetch(readmeUrl, {
                     headers: {
                         Accept: 'application/vnd.github.v3.raw'
                     }
                 })
                 .then(response => {
+                    console.log(`Response for ${repo.name}:`, response);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById(`readme-${repo.id}`).innerHTML = marked(readmeContent);
                 })
                 .catch(error => {
-                    console.error('Error fetching the README:', error);
+                    console.error(`Error fetching the README for ${repo.name}:`, error);
                     document.getElementById(`readme-${repo.id}`).innerHTML = '<p>Failed to load README.</p>';
                 });
             });
