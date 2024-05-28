@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </h5>
                         </div>
                         <div id="collapse${repo.id}" class="collapse" aria-labelledby="heading${repo.id}" data-parent="#projects-list">
-                            <div class="card-body" id="readme-${repo.id}">
+                            <div class="card-body readme-content" id="readme-${repo.id}">
                                 <p>Loading README...</p>
                             </div>
                         </div>
