@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Repositories fetched:", data);
 
             const projectsList = document.getElementById('projects-list');
-            data.forEach(repo => {
+            const limitProjects = projectsList && projectsList.dataset.limit;
+
+            data.slice(0, limitProjects ? 2 : data.length).forEach(repo => {
                 const projectName = repo.name === 'GrantDPowell.github.io' ? 'This Website' : repo.name;
                 const projectDiv = document.createElement('div');
                 projectDiv.className = 'col-md-12 mb-4';
