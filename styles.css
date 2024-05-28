@@ -44,3 +44,11 @@ footer a {
     text-decoration: none;
     margin: 0 5px;
 }
+
+/* Ensure images within the README content are responsive */
+.readme-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the image */
+}
