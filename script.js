@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("DOM fully loaded and parsed");
+
     fetch('https://api.github.com/users/GrantDPowell/repos')
         .then(response => response.json())
         .then(data => {
+            console.log("Repositories fetched:", data);
+
             const projectsList = document.getElementById('projects-list');
             data.forEach(repo => {
                 const projectDiv = document.createElement('div');
@@ -13,8 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         Accept: 'application/vnd.github.v3.raw'
                     }
                 })
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(readmeContent => {
+                    console.log(`README fetched for ${repo.name}:`, readmeContent);
+
                     projectDiv.innerHTML = `
                         <div class="card">
                             <div class="card-header" id="heading${repo.id}">
