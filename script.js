@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOM fully loaded and parsed");
 
-    const specificProjects = ['GrantDPowell.github.io', 'Integrated-Lab-Companion'];
-
     fetch('https://api.github.com/users/GrantDPowell/repos')
         .then(response => response.json())
         .then(data => {
@@ -10,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const gamesList = document.getElementById('games-list');
             const projectsList = document.getElementById('projects-list');
-            const homeProjectsList = document.getElementById('home-projects-list');
 
             data.forEach(repo => {
                 let category = 'Project';
@@ -62,10 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             gamesList.appendChild(projectDiv);
                         } else {
                             projectsList.appendChild(projectDiv);
-                        }
-
-                        if (specificProjects.includes(repo.name)) {
-                            homeProjectsList.appendChild(projectDiv.cloneNode(true));
                         }
 
                         // Fetch README file
