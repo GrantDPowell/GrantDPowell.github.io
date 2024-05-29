@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             data.forEach(repo => {
                 let category = 'Project';
-                if (repo.description && repo.description.toLowerCase().includes('[game]')) {
+                if (repo.description && repo.description.toLowerCase().includes('game')) {
                     category = 'Game';
-                } else if (repo.description && repo.description.toLowerCase().includes('[website]')) {
+                } else if (repo.description && repo.description.toLowerCase().includes('website')) {
                     category = 'Website';
                 }
 
@@ -58,12 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         `;
 
-                        if (specificProjects.includes(repo.name)) {
-                            homeProjectsList.appendChild(projectDiv.cloneNode(true));
-                        } else if (category === 'Game') {
+                        if (category === 'Game') {
                             gamesList.appendChild(projectDiv);
                         } else {
                             projectsList.appendChild(projectDiv);
+                        }
+
+                        if (specificProjects.includes(repo.name)) {
+                            homeProjectsList.appendChild(projectDiv.cloneNode(true));
                         }
 
                         // Fetch README file
