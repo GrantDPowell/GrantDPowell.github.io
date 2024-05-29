@@ -1,16 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOM fully loaded and parsed");
 
+    const specificProjects = ['GrantDPowell.github.io', 'Integrated-Lab-Companion'];
+
     fetch('https://api.github.com/users/GrantDPowell/repos')
         .then(response => response.json())
         .then(data => {
             console.log("Repositories fetched:", data);
 
+            const gamesList = document.getElementById('games-list');
             const projectsList = document.getElementById('projects-list');
-            const limitProjects = projectsList && projectsList.dataset.limit;
+            const homeProjectsList = document.getElementById('home-projects-list');
 
-            data.slice(0, limitProjects ? 2 : data.length).forEach(repo => {
-                const projectName = repo.name === 'GrantDPowell.github.io' ? 'This Website' : repo.name;
+            data.forEach(repo => {
+                let category = 'Project';
+                if (repo.description && repo.description.toLowerCase().includes('[game]')) {
+                    category = 'Game';
+                } else if (repo.description && repo.description.toLowerCase().includes('[website]')) {
+                    category = 'Website';
+                }
+
+                const projectName = repo.name === 'GrantDPowell.github.io' ? 'This Website' : repo.name.replace(/-/g, ' ');
                 const projectDiv = document.createElement('div');
                 projectDiv.className = 'col-md-12 mb-4';
 
@@ -47,7 +57,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                             </div>
                         `;
-                        projectsList.appendChild(projectDiv);
+
+                        if (specificProjects.includes(repo.name)) {
+                            homeProjectsList.appendChild(projectDiv.cloneNode(true));
+                        } else if (category === 'Game') {
+                            gamesList.appendChild(projectDiv);
+                        } else {
+                            projectsList.appendChild(projectDiv);
+                        }
 
                         // Fetch README file
                         const readmeUrl = `https://api.github.com/repos/GrantDPowell/${repo.name}/readme`;
@@ -67,14 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(readmeContent => {
                             console.log(`README fetched for ${repo.name}:`, readmeContent);
-
-                            // Convert relative image URLs to absolute
-                            const baseURL = `https://raw.githubusercontent.com/GrantDPowell/${repo.name}/main/`;
-                            const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, (match, alt, src) => {
-                                return `![${alt}](${baseURL}${src})`;
-                            });
-
-                            document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeWithAbsoluteURLs);
+                            document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeContent);
                         })
                         .catch(error => {
                             console.error(`Error fetching the README for ${repo.name}:`, error);
