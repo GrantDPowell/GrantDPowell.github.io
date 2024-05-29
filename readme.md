@@ -46,4 +46,4 @@ The contact form is implemented using HTML and integrated with Formspree to hand
 
 Uses github pages for hosting
 
-Go to [link](Https://GrantDPowell.github.io) to view
+Go to [GrantDPowell.Github.io](Https://GrantDPowell.github.io) to view
