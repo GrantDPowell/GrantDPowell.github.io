@@ -58,28 +58,28 @@ document.addEventListener('DOMContentLoaded', function () {
                                 Accept: 'application/vnd.github.v3.raw'
                             }
                         })
-                            .then(response => {
-                                console.log(`Response for ${repo.name}:`, response);
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                                return response.text();
-                            })
-                            .then(readmeContent => {
-                                console.log(`README fetched for ${repo.name}:`, readmeContent);
+                        .then(response => {
+                            console.log(`Response for ${repo.name}:`, response);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.text();
+                        })
+                        .then(readmeContent => {
+                            console.log(`README fetched for ${repo.name}:`, readmeContent);
 
-                                // Convert relative image URLs to absolute
-                                const baseURL = `https://raw.githubusercontent.com/GrantDPowell/${repo.name}/main/`;
-                                const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, (match, alt, src) => {
-                                    return `![${alt}](${baseURL}${src})`;
-                                });
-
-                                document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeWithAbsoluteURLs);
-                            })
-                            .catch(error => {
-                                console.error(`Error fetching the README for ${repo.name}:`, error);
-                                document.getElementById(`readme-${repo.id}`).innerHTML = '<p>Failed to load README.</p>';
+                            // Convert relative image URLs to absolute
+                            const baseURL = `https://raw.githubusercontent.com/GrantDPowell/${repo.name}/main/`;
+                            const readmeWithAbsoluteURLs = readmeContent.replace(/!\[([^\]]*)\]\((?!http)([^)]*)\)/g, (match, alt, src) => {
+                                return `![${alt}](${baseURL}${src})`;
                             });
+
+                            document.getElementById(`readme-${repo.id}`).innerHTML = marked.parse(readmeWithAbsoluteURLs);
+                        })
+                        .catch(error => {
+                            console.error(`Error fetching the README for ${repo.name}:`, error);
+                            document.getElementById(`readme-${repo.id}`).innerHTML = '<p>Failed to load README.</p>';
+                        });
                     });
             });
         })
