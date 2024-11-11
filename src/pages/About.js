@@ -12,7 +12,7 @@ function About() {
           <Button 
             variant="contained" 
             color="primary" 
-            href="https://github.com/GrantDPowell/GrantDPowell.github.io/blob/main/GrantDPowellResumeGIT.pdf"
+            href="https://github.com/GrantDPowell/GrantDPowell.github.io/blob/main/GrantDPowellResume.pdf"
             download
           >
             View/Download Resume
