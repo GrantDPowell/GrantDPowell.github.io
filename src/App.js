@@ -8,6 +8,8 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import { Box } from '@mui/material';
 
+// pls work
+
 function App() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
