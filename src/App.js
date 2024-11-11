@@ -17,7 +17,7 @@ function App() {
         <Header />
         <Box component="main" sx={{ flexGrow: 1 }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Projects />} />
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
